@@ -4,7 +4,11 @@ The reason this repository exists is to create a series of tools for HCSRN progr
 # Macros
 
 ## %fetch_census_demog 
-This macro takes a series of parameters and returns a dataset with the original dataset + whatever census demographics are available (i.e., not dependent on any particular implementation). Example usage below:
+This macro takes a series of parameters and returns a dataset with the original dataset + whatever census demographics are available (i.e., not dependent on any particular implementation). 
+
+**NOTE: We will need to update when 2020 demog is available**
+
+Example usage below:
 
 ```
 * define target dataset;
