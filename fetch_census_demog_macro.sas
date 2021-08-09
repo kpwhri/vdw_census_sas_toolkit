@@ -10,6 +10,7 @@
                         , demog_geo_var = geocode /* VDW uses the term geocode, Census uses geoid, some people say FIPS */
                         , census_yr_var = census_year /* variable in your demog dataset that contains the release year (e.g., 2018 would be 2014-2018) */
                         , outds = work.outds /*Where do you want it to go? */
+                        , debug = false
                         ) ;
     * Step 1 - Assess the years of ACS data available and get some boundaries based on tolerances (tol).;
     proc sql;
@@ -68,5 +69,17 @@
             and cst.census_year = dds.census_year
         ;
     quit;
+
+    %if &debug. = false %then %do;
+    %end;
+    %else %if &debug = true %then %do;
+        title4 'Frequency of demographic match flags';
+            proc freq data = work.census_select_temp_;
+                tables
+                    match_flag
+                ;
+            run;
+        title4;
+    %end;
 
 %mend fetch_census_demog ;
