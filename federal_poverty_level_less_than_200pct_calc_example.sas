@@ -26,6 +26,7 @@ proc univariate data = outds_pov;
     output out=pov_uni;
     var &pov_lt200_lst. fpl_lt_200_pct;
     id mrn;
+    histogram fpl_lt_200_pct /kernel (c=SJPI);
 run;
 
 
