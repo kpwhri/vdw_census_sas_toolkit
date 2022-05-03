@@ -1,7 +1,20 @@
 # Introduction
 The reason this repository exists is to create a series of tools for HCSRN programmers to use VDW Census Demographics data consistently. Please feel free to give them a try and post feedback directly on github. If you are not quite sure on how to clone a repository, please send an email to alphonse.derus@kp.org.
 
+When you want to get the latest and greatest macros/updates here, just do a "git pull". 
+
+# Specifications
+[Census Location](census_loc.md) - The person + location + time table
+[Census Demographics](census_loc) - Where we get sociodemographics.
+
 # Macros
+
+## %assess_census_demog_acs
+This macro assesses the local copy of _&_vdw_census_demog_acs_ and returns a printout of the (census_year, geocode_boundary_year) values available.
+
+## %join_census_loc
+This macro performs a left join from an input population (MRN) with a specified index date (either a variable in the dataset or a hard coded date. Default value is today()).
+
 
 ## %fetch_census_demog 
 This macro takes a series of parameters and returns a dataset with the original dataset + whatever census demographics are available (i.e., not dependent on any particular implementation). 
