@@ -1,7 +1,7 @@
 * Census location - &_vdw_census_loc -- just like enrollment;
 %macro fetch_census_demog(
                         input_ds = &_vdw_census_loc. (obs=100) /*YOUR data*/
-                        , idvar = mrn /*Have it in your dataset- Do not change unless you are not using MRN as your ID variable*/
+                        , idvar = mrn /*Have it in your dataset- Do not change unless you are not using MRN as your ID variable (e.g., event level data)*/
                         , geocode_var = geocode /*Have it in your dataset- Do not change unless you call it something else*/
                         , index_date = today() /*You should change this- needs to be a DATE*/
                         , years_prior_tolerance = 5 /*Recommended settings - Because ACS is a rolling average 2018 is really 2014-2018; this setting would allow joins as early as 2013 with 2018 only*/
