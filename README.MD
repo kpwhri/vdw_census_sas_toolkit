@@ -60,7 +60,7 @@ run;
 ## %fetch_census_demog 
 This macro takes a series of parameters and returns a dataset with the original dataset + whatever census demographics are available (i.e., not dependent on any particular implementation). 
 
-**NOTE: We will need to update when 2020 demog is available**
+**NOTE: THIS IS PROBABLY BROKEN AT MOST SITES AND NEEDS TO BE FIXED WITH 2020 CHANGES!**
 
 Example usage below:
 
