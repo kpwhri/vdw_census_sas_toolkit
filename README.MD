@@ -4,8 +4,9 @@ The reason this repository exists is to create a series of tools for HCSRN progr
 When you want to get the latest and greatest macros/updates here, just do a "git pull". 
 
 # Specifications
-[Census Location](census_loc.md) - The person + location + time table
-[Census Demographics](census_loc) - Where we get sociodemographics.
+[Census Location](census_loc_specs.md) - The person + location + time table. 
+
+[Census Demographics](census_demog_acs_specs.md) - Where we get sociodemographics.
 
 # Macros
 
@@ -15,6 +16,46 @@ This macro assesses the local copy of _&_vdw_census_demog_acs_ and returns a pri
 ## %join_census_loc
 This macro performs a left join from an input population (MRN) with a specified index date (either a variable in the dataset or a hard coded date. Default value is today()).
 
+### Example 1 - Explicit index_date out of enrollment {#join_ex_1}
+```sas
+join_census_loc(in_dset, out_dset, index_date, days_tolerance_pre=0, days_tolerance_post=0, debug=false);
+%join_census_loc(
+                &_vdw_enroll(where=('31jan2022'd between enr_start and enr_end) obs=10000) /*in_dset*/
+                ,SampleJoin                     /*outdset*/
+                , index_date = '31jan2022'd     /*explicit index_date */
+                , days_tolerance_pre=90         /*how far back can we look for a location period? */
+                , days_tolerance_post=90        /*how far forward can we look for a location period? */
+                , debug=true                    /*do we want to look at some key frequencies */
+                );
+```
+
+
+### Example 2 - Explicit index_date {join_ex_2}
+
+```sas
+* make a temp table
+data _tmp;
+    set &_vdw_enroll(where=(enr_start between '01JUN2018'd and '01JAN2019'd) obs=10000);
+    format idx yymmddd10.;
+    do i='01jan2017'd to '31dec2021'd by 15;
+        idx = i;
+        output;
+    end;
+run;
+
+%join_census_loc(_tmp
+                ,SampleJoin_2
+                , index_date = idx
+                , debug=false);
+```
+
+### Example 3 - Explicit index_date {join_ex_3}
+```sas
+
+%join_census_loc(_tmp
+                ,SampleJoin_3
+                , debug=true);
+```
 
 ## %fetch_census_demog 
 This macro takes a series of parameters and returns a dataset with the original dataset + whatever census demographics are available (i.e., not dependent on any particular implementation). 
