@@ -14,7 +14,7 @@ We tend to see a few use generic cases for VDW Census:
 1. Estimate SES for a data only study with a limited timeframe.
     1. Example: Estimating SES of ER visits between 2015 and 2020.
     1. Suggested Parameters:
-        1. CENSUS_YEAR - Use the CENSUS_YEAR that most aligns with the sample frame. CENSUS_YEAR=2020 was measured from 2016-2020. This seems like a reasonable tolerance level as only one year of ACS sampling was not included in the . 
+        1. CENSUS_YEAR - Use the CENSUS_YEAR that most aligns with the sample frame. CENSUS_YEAR=2020 was measured from 2016-2020. This seems like a reasonable tolerance level as only one year of ACS sampling was not included in the ACS sampling. 
         1. GEOCODE_BOUNDARY_YEAR census_demog_acs - Use the GEOCODE_BOUNDARY_YEAR associated with the selected ACS (2020).
         1. GEOCODE_BOUNDARY_YEAR census_loc - Use the GEOCODE_BOUNDARY_YEAR associated with the selected ACS (2020).        
 1. Estimate SES for a data only study with a long timeframe.
@@ -25,9 +25,6 @@ We tend to see a few use generic cases for VDW Census:
             1. record B - Index date of 01jan2007 would use CENSUS_YEAR=2012, GEOCODE_BOUNDARY_YEAR=2010 assuming a 1 year tolerance
             1. record C - Index date of 01jan2000 would be left missing because it exceeds a tolerance threshold.
             1. record D - Index date of 12dec2021 would use CENSUS_YEAR=2021, GEOCODE_BOUNDARY_YEAR=2020
-        1. GEOCODE_BOUNDARY_YEAR census_demog_acs - Use the GEOCODE_BOUNDARY_YEAR associated with the selected ACS (2020) on the index date for a given record.
-        1. GEOCODE_BOUNDARY_YEAR census_loc - Use the GEOCODE_BOUNDARY_YEAR associated with the most current ACS (2020).        
-
 
 Here are some things worth considering:
 1. Census is not individualized data. The aggregated values can closely resemble collected data (including race), but it is helpful to conceptualize.
