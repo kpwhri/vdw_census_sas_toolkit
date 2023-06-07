@@ -1,10 +1,17 @@
-%macro join_census_loc(in_dset, out_dset, index_date, days_tolerance_pre=0, days_tolerance_post=0, debug=false);
+%macro join_census_loc(in_dset
+                       , out_dset
+                       , index_date
+                       , geocode_boundary_year= floor(year(&index_date.)/10)*10
+                       , days_tolerance_pre=0
+                       , days_tolerance_post=0
+                       , debug=false
+                       );
     /*
     This macro performs a left join from an input population (MRN) with a specified index date (either a variable in the dataset or a hard coded date. Default value is today()).
     Input parameters:
       in_dset - name of the input dataset
       out_dset - name of the output dataset
-      index_date a specified index date (either a variable in the dataset or a hard coded date)
+      index_date a specified index date (either a variable in the dataset or a hard coded date) - if you're trying to get a year, just use '01jan{year}'d.
     Default value is today()).
 
     %isBlank ref - https://communities.sas.com/t5/SAS-Programming/How-to-check-if-a-macro-variable-is-blank/td-p/160327
@@ -29,6 +36,7 @@
         select 
             ids.*
             , loc.*
+            , &geocode_boundary_year.
             &_sql_idx.
             , case 
                 when &index_date.  between loc.loc_start and loc.loc_end then 'Match - Exact'

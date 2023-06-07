@@ -17,6 +17,7 @@
         create table work.census_years_temp_ as 
         select distinct
             &census_yr_var. as census_year
+            , floor(&census_yr_var./10)*10 as geocode_boundary_year
             , &census_yr_var. - &years_prior_tolerance. as census_year_lowest
             , &census_yr_var. + &years_after_tolerance. as census_year_highest
         from &demog_data_src
@@ -32,6 +33,7 @@
             , year(&index_date.) as index_year
             , &index_date as index_date
             , tol.census_year
+            , tol.geocode_boundary_year
             , tol.census_year_lowest
             , tol.census_year_highest
             , case 

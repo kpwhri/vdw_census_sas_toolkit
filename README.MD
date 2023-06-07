@@ -3,6 +3,36 @@ The reason this repository exists is to create a series of tools for HCSRN progr
 
 When you want to get the latest and greatest macros/updates here, just do a "git pull". 
 
+# Use cases
+We tend to see a few use generic cases for VDW Census:
+1. Estimate SES for a recruitment study or a data only study of current patients.
+    1. Example: Estimating SES of a population of diabetics.
+    1. Suggested Parameters: 
+        1. CENSUS_YEAR - Use the most current ACS CENSUS_YEAR (currently 2021).
+        1. GEOCODE_BOUNDARY_YEAR census_demog_acs - Use the GEOCODE_BOUNDARY_YEAR associated with the most current ACS (2020).
+        1. GEOCODE_BOUNDARY_YEAR census_loc - Use the GEOCODE_BOUNDARY_YEAR associated with the most current ACS (2020).
+1. Estimate SES for a data only study with a limited timeframe.
+    1. Example: Estimating SES of ER visits between 2015 and 2020.
+    1. Suggested Parameters:
+        1. CENSUS_YEAR - Use the CENSUS_YEAR that most aligns with the sample frame. CENSUS_YEAR=2020 was measured from 2016-2020. This seems like a reasonable tolerance level as only one year of ACS sampling was not included in the . 
+        1. GEOCODE_BOUNDARY_YEAR census_demog_acs - Use the GEOCODE_BOUNDARY_YEAR associated with the selected ACS (2020).
+        1. GEOCODE_BOUNDARY_YEAR census_loc - Use the GEOCODE_BOUNDARY_YEAR associated with the selected ACS (2020).        
+1. Estimate SES for a data only study with a long timeframe.
+    1. Example: Estimating SES of ER visits between 2006 and 2020.
+    1. Suggested Parameters:
+        1. CENSUS_YEAR - Use the CENSUS_YEAR that most aligns a single index date like a date of diagnosis or a procedure. ACS values are smoothed out over time, but you might want to get to "close enough" or a tolerance based on the index date. If you have something very old, it can be reasonable to use, but also, there comes a point at which a study says, "this record exceeds the tolerance to be an acceptable match".
+            1. record A - Index date of 01jan2008 would use CENSUS_YEAR=2012, GEOCODE_BOUNDARY_YEAR=2010
+            1. record B - Index date of 01jan2007 would use CENSUS_YEAR=2012, GEOCODE_BOUNDARY_YEAR=2010 assuming a 1 year tolerance
+            1. record C - Index date of 01jan2000 would be left missing because it exceeds a tolerance threshold.
+            1. record D - Index date of 12dec2021 would use CENSUS_YEAR=2021, GEOCODE_BOUNDARY_YEAR=2020
+        1. GEOCODE_BOUNDARY_YEAR census_demog_acs - Use the GEOCODE_BOUNDARY_YEAR associated with the selected ACS (2020) on the index date for a given record.
+        1. GEOCODE_BOUNDARY_YEAR census_loc - Use the GEOCODE_BOUNDARY_YEAR associated with the most current ACS (2020).        
+
+
+Here are some things worth considering:
+1. Census is not individualized data. The aggregated values can closely resemble collected data (including race), but it is helpful to conceptualize.
+1. Avoid using correlated/component variables in models. This includes the component values of computed indexes using the same underlying data (e.g., SVI, ADI, NDI, RUCA).
+
 # Specifications
 [Census Location](census_loc_specs.md) - The person + location + time table. 
 
