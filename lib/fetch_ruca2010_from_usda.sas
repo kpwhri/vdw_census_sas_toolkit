@@ -7,7 +7,7 @@
     filename ruca_raw "&ruca_dir.\ruca.xlsx";
 
     proc http 
-        url="https://www.ers.usda.gov/webdocs/DataFiles/53241/ruca2010revised.xlsx?v=290.9"
+        url="https://ers.usda.gov/sites/default/files/_laserfiche/DataFiles/53241/ruca2010revised.xlsx"
         out=ruca_raw
         ;
     run;
